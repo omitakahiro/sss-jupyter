@@ -10,6 +10,10 @@ while getopts p: OPT; do
     esac
 done
 
+if ! python3 -m jupyterlab --version > /dev/null 2>&1; then
+    echo "Error: JupyterLab is not installed."
+    exit 1
+fi
 
 if ! ls ~/.jupyterkey > /dev/null 2>&1; then
     echo "generate ssh key in ~/.jupyterkey..."
@@ -17,7 +21,7 @@ if ! ls ~/.jupyterkey > /dev/null 2>&1; then
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ~/.jupyterkey/mykey.key -out ~/.jupyterkey/mycert.pem -subj "/C=JA" > /dev/null 2>&1
 fi
 
-token=$(cat /dev/urandom | tr -dc '0-9a-f' | fold -w 100 | head -n 1)
+token=$(cat /dev/urandom | tr -dc '0-9a-f' | fold -w 50 | head -n 1)
 
 nohup python3 -m jupyterlab \
     --ip=0.0.0.0 \
@@ -25,7 +29,14 @@ nohup python3 -m jupyterlab \
     --certfile="~/.jupyterkey/mycert.pem" \
     --keyfile="~/.jupyterkey/mykey.key" \
     --IdentityProvider.token="${token}" \
-    > ~/.jupyterlog 2>&1 &
+    --no-browser \
+    > ~/.jupyter.log 2>&1 &
 
 external_ip=$(curl -s ifconfig.me)
-echo https://${external_ip}:${port}/?token=${token}
+
+echo "JupyterLab server is runnning at:"
+echo "    https://${external_ip}:${port}/?token=${token}"
+echo ""
+echo "JupyterLab logs are stored in ~/.jupyter.log"
+
+
