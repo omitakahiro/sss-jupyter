@@ -25,4 +25,7 @@ include = ["sss_jupyter"]
 only-packages = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["ssh_jupyter"]
+packages = ["sss_jupyter"]
+
+[tool.hatch.build.targets.sdist]
+packages = ["sss_jupyter"]
