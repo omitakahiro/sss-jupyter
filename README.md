@@ -2,13 +2,13 @@
 
 A package to launch a JupyterLab server with a self-signed SSL certificate.
 
-## install
+## Install
 
 ```sh
 pip install sss-jupyter
 ```
 
-## usage
+## Usage
 
 The following command launches a JupyterLab sesrver with HTTPS.
 
