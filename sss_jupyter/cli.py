@@ -4,7 +4,13 @@ import subprocess
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--port", type=int, default=8888)
+    parser.add_argument(
+        "-p",
+        "--port",
+        type=int,
+        default=8888,
+        description="The port the server will listen on."
+    )
     args = parser.parse_args()
     return args
 
