@@ -29,4 +29,6 @@ Option:
 ```
 -p, --port: int (default: 8888)
      The port the server will listen on.
+-l, --token_length: int (default: 50)
+    The character length of a secret token.
 ```
