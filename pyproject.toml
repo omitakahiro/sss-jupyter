@@ -1,6 +1,6 @@
 [project]
 name = "sss-jupyter"
-version = "0.0.0"
+version = "0.0.1"
 description = "Python package to launch a self-signed SSL JupyterLab server"
 readme = "README.md"
 requires-python = ">=3.7"
