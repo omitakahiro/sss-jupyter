@@ -11,6 +11,13 @@ def get_args():
         default=8888,
         description="The port the server will listen on."
     )
+    parser.add_argument(
+        "-l",
+        "--token_length",
+        type=int,
+        default=50,
+        description="The character length of a secret token."
+    )
     args = parser.parse_args()
     return args
 
@@ -18,5 +25,5 @@ def main():
     args = get_args()
     file_dir = os.path.dirname(__file__)
     file_shell = os.path.join(file_dir, "launch.sh")
-    subprocess.run(f"bash {file_shell} -p {args.port}", shell=True)
+    subprocess.run(f"bash {file_shell} -p {args.port} -l {arts.token_length}", shell=True)
 
