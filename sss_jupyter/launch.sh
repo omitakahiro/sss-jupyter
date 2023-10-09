@@ -3,10 +3,12 @@
 set -e
 
 port="8888"
+token_length=50
 
-while getopts p: OPT; do
+while getopts p:l: OPT; do
     case $OPT in
         p) port=${OPTARG} ;;
+        l) token_length=${OPTARG} ;;
     esac
 done
 
@@ -21,7 +23,7 @@ if ! ls ~/.jupyterkey > /dev/null 2>&1; then
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ~/.jupyterkey/mykey.key -out ~/.jupyterkey/mycert.pem -subj "/C=JA" > /dev/null 2>&1
 fi
 
-token=$(cat /dev/urandom | tr -dc '0-9a-f' | fold -w 50 | head -n 1)
+token=$(cat /dev/urandom | tr -dc '0-9a-f' | fold -w ${token_length} | head -n 1)
 
 nohup python3 -m jupyterlab \
     --ip=0.0.0.0 \
